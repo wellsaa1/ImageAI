@@ -17,7 +17,13 @@ from imageai.Detection.YOLO.yolov3 import tiny_yolov3_main, yolov3_main
 from imageai.Detection.YOLO.utils import letterbox_image, yolo_eval, preprocess_input, retrieve_yolo_detections, draw_boxes
 
 
+#Selecting GPU MAYBE?
 
+gpu_id ='1'
+visible_gpu_indices = [int(id) for id in gpu_id.split(',')]
+available_gpus = tf.config.list_physical_devices('GPU')
+visible_gpus = [gpu for idx, gpu in enumerate(available_gpus) if idx in visible_gpu_indices]
+tf.config.set_visible_devices( visible_gpus , 'GPU') #Aarons hacks test
 class ObjectDetection:
     """
     This is the object detection class for images in the ImageAI library. It provides support for RetinaNet
